@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("todobimal")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b96cdd64662f11e5ef107037886a4a8f8370691")]
 [assembly: System.Reflection.AssemblyProductAttribute("todobimal")]
 [assembly: System.Reflection.AssemblyTitleAttribute("todobimal")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,5 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using todobimal.Data;
 using todobimal.Models;
 
 namespace todobimal.Controllers
@@ -7,10 +8,12 @@ namespace todobimal.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
         
         public IActionResult Index()
@@ -18,7 +21,7 @@ namespace todobimal.Controllers
             return View();
         }
       
-        public IActionResult Privacy()
+        public IActionResult Privacy(int id)
         {
             ////ViewData approch
             //ViewData["Task"] = "Learn dot net";
@@ -44,7 +47,34 @@ namespace todobimal.Controllers
             //    Status = "ToDo"},
 
             //};
-            return View(new TasksList());
+            //return View(new TasksList());
+             if (Request.Method == "POST") {
+                var tlist = new TasksList
+                {
+                    Task = Request.Form["task"],
+                    Description = Request.Form["description"],
+                    Status = Request.Form["status"]
+                };
+                Console.WriteLine(tlist);
+                _context.Taskslist.Add(tlist);
+                _context.SaveChanges();
+                Console.WriteLine("Form Submitted");
+                return View();
+            }
+            else
+            {
+                Console.WriteLine(id);
+                var task =_context.Taskslist.Find(id);
+                return View(task);
+            }
+
+          
+        }
+
+        public IActionResult mytask()
+        {
+            var tasklist = _context.Taskslist.ToList();
+            return View(tasklist);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
